@@ -6,6 +6,7 @@ import Card from "./Card";
 const Form = () => {
   const [moviesData, setMoviesData] = useState([]);
   const [search, setSearch] = useState("comedy");
+  const [sortGoodBad, setSortGoodBad] = useState(null);
 
   useEffect(() => {
     axios
@@ -29,10 +30,18 @@ const Form = () => {
           <input type="submit" value="Rechercher" />
         </form>
         <div className="btn-sort-container">
-          <div className="btn-sort" id="goodToBad">
+          <div
+            className="btn-sort"
+            id="goodToBad"
+            onClick={() => setSortGoodBad("goodToBad")}
+          >
             Top<span>➜</span>
           </div>
-          <div className="btn-sort" id="badToGood">
+          <div
+            className="btn-sort"
+            id="badToGood"
+            onClick={() => setSortGoodBad("badToGood")}
+          >
             Flop<span>➜</span>
           </div>
         </div>
@@ -42,10 +51,20 @@ const Form = () => {
         {/* avant de faire le map je veux 12 resulat en utilisant la methode slice  */}
         {/* chaque element de chaque tour de boucle je vais appeler movie et avoir une clé unique  */}
 
-        {moviesData.slice(0, 12).map((movie) => (
-          //  a chaque tour de boucle tu vas voir le component card et tu vas lui passer les props movie
-          <Card movie={movie} key={movie.id} />
-        ))}
+        {moviesData
+          .slice(0, 12)
+          .sort((a, b) => {
+            // je passe id goodToBad ou badToGood
+            if (sortGoodBad === "goodToBad") {
+              return b.vote_average - a.vote_average;
+            } else if (sortGoodBad === "badToGood") {
+              return a.vote_average - b.vote_average;
+            }
+          })
+          .map((movie) => (
+            //  a chaque tour de boucle tu vas voir le component card et tu vas lui passer les props movie
+            <Card movie={movie} key={movie.id} />
+          ))}
       </div>
     </div>
   );
