@@ -28,7 +28,11 @@ const Card = ({ movie }) => {
       <h4>
         {movie.vote_average}/10 <span>⭐</span>
       </h4>
-      <ul>{movie.genre_ids ? genreFinder() : null}</ul>
+      {/* je ne verifie pas si movie_genre.ids existe car je l'ai deja fait dans le fichier genreFinder */}
+      <ul>{genreFinder(movie)}</ul>
+      {movie.overview ? <h3>Synopsis</h3> : ""}
+      <p>{movie.overview}</p>
+      <div className="btn">Ajouter aux coups de coeur</div>
     </div>
   );
 };
