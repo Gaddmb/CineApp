@@ -1,11 +1,10 @@
-import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Card from "./Card";
 
 const Form = () => {
   const [moviesData, setMoviesData] = useState([]);
-  const [search, setSearch] = useState("action");
+  const [search, setSearch] = useState("animation");
   const [sortGoodBad, setSortGoodBad] = useState(null);
 
   useEffect(() => {

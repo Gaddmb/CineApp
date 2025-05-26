@@ -16,7 +16,9 @@ const LikePage = () => {
     moviesId.forEach((id) => {
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=ed82f4c18f2964e75117c2dc65e2161d&language=fr-FR`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }&language=fr-FR`
         )
         .then((res) => setListData((listData) => [...listData, res.data]));
     });
