@@ -9,6 +9,27 @@ const Card = ({ movie }) => {
     return `${day}/${month}/${year}`;
   };
 
+  const addStorage = () => {
+    // je verifie si le local storage existe sinon je vais le creer et je vais lui donner une valeur de tableau vide
+    let storedData = window.localStorage.movies
+      ? window.localStorage.movies.split(",")
+      : [];
+
+    //
+    if (!storedData.includes(movie.id.toString())) {
+      storedData.push(movie.id.toString());
+
+      // je vais stocker le tableau dans le local storage
+      window.localStorage.movies = storedData.join(",");
+    }
+  };
+
+  const deleteStorage = () => {
+    let storedData = window.localStorage.movies.split(",");
+    let newData = storedData.filter((id) => id !== movie.id.toString());
+    window.localStorage.movies = newData.join(",");
+  };
+
   return (
     <div className="card">
       <img
@@ -32,7 +53,22 @@ const Card = ({ movie }) => {
       <ul>{genreFinder(movie)}</ul>
       {movie.overview ? <h3>Synopsis</h3> : ""}
       <p>{movie.overview}</p>
-      <div className="btn">Ajouter aux coups de coeur</div>
+      {/* je vais faire une condition pour savoir si le film est deja dans le local storage ou pas  */}
+      {movie.genre_ids ? (
+        <div className="btn" onClick={() => addStorage()}>
+          Ajouter aux coups de coeur
+        </div>
+      ) : (
+        <div
+          className="btn"
+          onClick={() => {
+            deleteStorage();
+            window.location.reload();
+          }}
+        >
+          Supprimer de la liste
+        </div>
+      )}
     </div>
   );
 };

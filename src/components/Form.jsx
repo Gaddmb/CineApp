@@ -5,7 +5,7 @@ import Card from "./Card";
 
 const Form = () => {
   const [moviesData, setMoviesData] = useState([]);
-  const [search, setSearch] = useState("comedy");
+  const [search, setSearch] = useState("action");
   const [sortGoodBad, setSortGoodBad] = useState(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Form = () => {
         {/* chaque element de chaque tour de boucle je vais appeler movie et avoir une clé unique  */}
 
         {moviesData
-          .slice(0, 12)
+          .slice(0, 24)
           .sort((a, b) => {
             // je passe id goodToBad ou badToGood
             if (sortGoodBad === "goodToBad") {
